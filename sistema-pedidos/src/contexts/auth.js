@@ -6,6 +6,7 @@ import {
   signOut,
   getAuth,
 } from "firebase/auth";
+// eslint-disable-next-line
 import FirebaseApp from "../services/firebase";
 
 export const AuthContext = createContext();

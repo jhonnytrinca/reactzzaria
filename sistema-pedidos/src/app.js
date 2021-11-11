@@ -5,6 +5,7 @@ import { onAuthStateChanged, getAuth } from "firebase/auth";
 import { AuthContext } from "./contexts/auth";
 import { Redirect } from "react-router";
 import t from "prop-types";
+// eslint-disable-next-line
 import FirebaseApp from "./services/firebase";
 
 const MainPage = lazy(() => import("./pages/main"));
