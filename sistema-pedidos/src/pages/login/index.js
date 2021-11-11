@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { Button, Grid } from "@material-ui/core";
 import { ReactComponent as MainLogo } from "./logo-react-zzaria.svg";
-import FirebaseApp from "../../services/firebase";
 import { AuthContext } from "../../contexts/auth";
+import FirebaseApp from "../../services/firebase";
 
 function Login() {
   const { login } = useContext(AuthContext);
