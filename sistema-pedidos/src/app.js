@@ -8,8 +8,8 @@ import t from "prop-types";
 // eslint-disable-next-line
 import FirebaseApp from "./services/firebase";
 
-const MainPage = lazy(() => import("./pages/main"));
-const Login = lazy(() => import("./pages/login"));
+const MainPage = lazy(() => import("./pages/main/main"));
+const Login = lazy(() => import("./pages/login/login"));
 
 function App({ location }) {
   const { userInfo, setUserInfo } = useContext(AuthContext);
@@ -20,7 +20,10 @@ function App({ location }) {
     onAuthStateChanged(getAuth(), (user) => {
       if (user) {
         console.log("dados do usuário", user);
-        setUserInfo({ isUserLoggedIn: true, user });
+        setUserInfo({
+          isUserLoggedIn: true,
+          user: user && { ...user, firstName: user.displayName.split(" ")[0] },
+        });
         setCheckUserIn(true);
       }
     });

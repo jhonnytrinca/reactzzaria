@@ -16,7 +16,6 @@ function Auth({ children }) {
     isUserLoggedIn: false,
     user: null,
   });
-  // const { isUserLoggedIn, user } = userInfo;
 
   const login = useCallback(() => {
     const provider = new GithubAuthProvider();

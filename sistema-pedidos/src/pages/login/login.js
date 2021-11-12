@@ -11,23 +11,13 @@ function Login() {
 
   return (
     <Container>
-      <Grid container spacing={40} justify={"center"}>
+      <Grid container spacing={5} justifyContent={"center"}>
         <Grid item xs={12}>
           <Logo />
         </Grid>
 
-        <Grid item xs={12} container justify={"center"}>
-          {/* {isUserLoggedIn && (
-            <>
-              <pre>{user.displayName}</pre>
-              <Button variant="contained" onClick={logout}>
-                Sair
-              </Button>
-            </>
-          )} */}
-          {/* {!isUserLoggedIn && ( */}
+        <Grid item xs={12} container justifyContent={"center"}>
           <GithubButton onClick={login}>Entrar com GitHub</GithubButton>
-          {/* )} */}
         </Grid>
       </Grid>
     </Container>
