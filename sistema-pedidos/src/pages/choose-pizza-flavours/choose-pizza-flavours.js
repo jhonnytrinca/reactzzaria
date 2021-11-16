@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Redirect } from "react-router";
 import { Grid, Card as MaterialCard, Typography } from "@material-ui/core";
-import singularOrPlural from "../../utils/singular-or-plural";
 import { HOME } from "../../routes";
 import PizzaFlavours from "../../fake-data/pizzas-flavours";
 import { Title, HeaderContent, PizzasGrid, Divider, CardLink } from "../../ui";
+import { toMoney, singularOrPlural } from "../../utils";
 
 const ChoosePizzaFlavours = ({ location }) => {
   const [checkboxes, setCheckboxes] = useState(() => ({}));
@@ -52,7 +52,7 @@ const ChoosePizzaFlavours = ({ location }) => {
                 <Img src={pizza.image} alt={pizza.name} />
                 <Divider />
                 <Typography>{pizza.name}</Typography>
-                <Typography variant="h5">{pizza.value[id]}</Typography>
+                <Typography variant="h5">{toMoney(pizza.value[id])}</Typography>
               </Label>
             </Card>
           </Grid>

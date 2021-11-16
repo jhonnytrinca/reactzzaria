@@ -4,7 +4,7 @@ import { Typography, Grid, Card } from "@material-ui/core";
 import { AuthContext } from "../../contexts/auth";
 import PizzaSizes from "../../fake-data/pizzas-sizes";
 import { CHOOSE_PIZZA_FLAVORS } from "../../routes";
-import singularOrPlural from "../../utils/singular-or-plural";
+import { singularOrPlural } from "../../utils";
 import { Title, HeaderContent, PizzasGrid, Divider, CardLink } from "../../ui";
 
 const ChoosePizzaSize = () => {
