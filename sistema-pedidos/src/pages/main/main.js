@@ -9,7 +9,7 @@ const ChoosePizzaSize = lazy(() =>
   import("../choose-pizza-size/choose-pizza-size.js")
 );
 const ChoosePizzaFlavors = lazy(() =>
-  import("../choose-pizza-flavors/choose-pizza-flavors.js")
+  import("../choose-pizza-flavours/choose-pizza-flavours.js")
 );
 
 const Main = () => (
