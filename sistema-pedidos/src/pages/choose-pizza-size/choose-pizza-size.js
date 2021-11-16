@@ -5,13 +5,20 @@ import { AuthContext } from "../../contexts/auth";
 import PizzaSizes from "../../fake-data/pizzas-sizes";
 import { CHOOSE_PIZZA_FLAVORS } from "../../routes";
 import { singularOrPlural } from "../../utils";
-import { Title, HeaderContent, PizzasGrid, Divider, CardLink } from "../../ui";
+import {
+  Title,
+  HeaderContent,
+  PizzasGrid,
+  Divider,
+  CardLink,
+  Content,
+} from "../../ui";
 
 const ChoosePizzaSize = () => {
   const { userInfo } = useContext(AuthContext);
 
   return (
-    <>
+    <Content>
       <HeaderContent>
         <Title variant="h3">
           O que vai ser hoje, {userInfo.user.firstName}?
@@ -38,7 +45,7 @@ const ChoosePizzaSize = () => {
           </Grid>
         ))}
       </PizzasGrid>
-    </>
+    </Content>
   );
 };
 
