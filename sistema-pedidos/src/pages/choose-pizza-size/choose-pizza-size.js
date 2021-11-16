@@ -46,7 +46,7 @@ const PizzaText = styled(Typography).attrs({ variant: "h5" })`
   height: 80px;
   width: 80px;
   border-radius: 50%;
-  background: white;
+  background: ${({ theme }) => theme.palette.common.white};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,19 +57,19 @@ const PizzaText = styled(Typography).attrs({ variant: "h5" })`
 const Pizza = styled.div`
   height: 200px;
   width: 200px;
-  border: 1px solid silver;
+  border: 1px solid ${({ theme }) => theme.palette.grey.A100};
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  background: white;
+  background: ${({ theme }) => theme.palette.common.white};
   z-index: 1;
 
   &::before,
   &::after {
     content: "";
-    background: silver;
+    background: ${({ theme }) => theme.palette.grey.A100};
     position: absolute;
     transform: rotate(45deg);
   }

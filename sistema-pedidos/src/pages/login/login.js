@@ -29,17 +29,19 @@ const Logo = styled(MainLogo)`
 `;
 
 const Container = styled.div`
-  padding: 20px;
+  padding: ${({ theme }) => theme.spacing(3)}px;
 `;
 
 const GithubButton = styled(Button).attrs({
   variant: "contained",
   fullWidth: true,
 })`
-  text-transform: none;
-  font-size: 20px;
-  padding: 20px;
-  max-width: 480px;
+  && {
+    text-transform: none;
+    font-size: ${({ theme }) => theme.typography.h5.fontsize};
+    padding: ${({ theme }) => theme.spacing(2)}px;
+    max-width: 480px;
+  }
 `;
 
 export default Login;

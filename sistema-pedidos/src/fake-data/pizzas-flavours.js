@@ -1,7 +1,7 @@
 const PizzaFlavours = [
   {
     id: 0,
-    image: "/public/fake-data/images/pizza-calabresa.png",
+    image: "/fake-data/images/pizza-calabresa.png",
     name: "Calabresa",
     value: {
       0: 20,
@@ -12,7 +12,7 @@ const PizzaFlavours = [
 
   {
     id: 1,
-    image: "/public/fake-data/images/pizza-frango-catupiry.png",
+    image: "/fake-data/images/pizza-frango-catupiry.png",
     name: "Frango com Catupiry",
     value: {
       0: 25,
@@ -23,7 +23,7 @@ const PizzaFlavours = [
 
   {
     id: 2,
-    image: "/public/fake-data/images/pizza-prestigio.jpg",
+    image: "/fake-data/images/pizza-prestigio.jpg",
     name: "Prestígio",
     value: {
       0: 30,

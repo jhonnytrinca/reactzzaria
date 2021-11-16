@@ -48,7 +48,7 @@ const Header = () => {
 
 const Toolbar = styled(MaterialToolbar)`
   width: 100%;
-  max-width: 960px;
+  max-width: ${({ theme }) => theme.breakpoints.values.lg}px;
   margin: 0 auto;
 `;
 
@@ -61,11 +61,11 @@ const Logo = styled(MainLogo)`
   height: 50px;
 
   & path {
-    fill: white;
+    fill: ${({ theme }) => theme.palette.common.white};
   }
 
   & line {
-    stroke: white;
+    stroke: ${({ theme }) => theme.palette.common.white};
   }
 `;
 
