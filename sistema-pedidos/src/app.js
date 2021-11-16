@@ -1,11 +1,11 @@
-import React, { Suspense, lazy, useEffect, useContext, useState } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import { LinearProgress } from "@material-ui/core";
 import { onAuthStateChanged, getAuth } from "firebase/auth";
-import { AuthContext } from "./contexts/auth";
 import { Redirect } from "react-router";
 import t from "prop-types";
 import { HOME, LOGIN } from "./routes";
+import useAuth from "./hooks/auth";
 // eslint-disable-next-line
 import FirebaseApp from "./services/firebase";
 
@@ -13,7 +13,7 @@ const MainPage = lazy(() => import("./pages/main/main"));
 const Login = lazy(() => import("./pages/login/login"));
 
 function App({ location }) {
-  const { userInfo, setUserInfo } = useContext(AuthContext);
+  const { userInfo, setUserInfo } = useAuth();
   const [didCheckUserIn, setDidCheckUserIn] = useState(false);
   const { isUserLoggedIn } = userInfo;
 

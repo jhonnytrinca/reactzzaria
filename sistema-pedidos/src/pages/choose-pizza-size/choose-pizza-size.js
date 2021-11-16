@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Typography, Grid, Card } from "@material-ui/core";
-import { AuthContext } from "../../contexts/auth";
 import PizzaSizes from "../../fake-data/pizzas-sizes";
 import { CHOOSE_PIZZA_FLAVORS } from "../../routes";
 import { singularOrPlural } from "../../utils";
@@ -13,9 +12,10 @@ import {
   CardLink,
   Content,
 } from "../../ui";
+import useAuth from "../../hooks/auth";
 
 const ChoosePizzaSize = () => {
-  const { userInfo } = useContext(AuthContext);
+  const { userInfo } = useAuth();
 
   return (
     <Content>
@@ -30,7 +30,12 @@ const ChoosePizzaSize = () => {
         {PizzaSizes.map((pizza) => (
           <Grid item key={pizza.id} xs>
             <Card>
-              <CardLink to={{ pathname: CHOOSE_PIZZA_FLAVORS, state: pizza }}>
+              <CardLink
+                to={{
+                  pathname: CHOOSE_PIZZA_FLAVORS,
+                  state: { pizzaSize: pizza },
+                }}
+              >
                 <Pizza>
                   <PizzaText>{pizza.size}cm </PizzaText>
                 </Pizza>

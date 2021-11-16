@@ -1,13 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Redirect, Link } from "react-router-dom";
-import {
-  Grid,
-  Card as MaterialCard,
-  Typography,
-  Container,
-  Button as MaterialButton,
-} from "@material-ui/core";
+import { Redirect } from "react-router-dom";
+import { Grid, Card as MaterialCard, Typography } from "@material-ui/core";
 import { HOME, CHOOSE_PIZZA_QUANTITY } from "../../routes";
 import PizzaFlavours from "../../fake-data/pizzas-flavours";
 import {
@@ -17,18 +11,17 @@ import {
   Divider,
   CardLink,
   Content,
+  Footer,
 } from "../../ui";
 import { toMoney, singularOrPlural } from "../../utils";
-import { AuthContext } from "../../contexts/auth";
 
 const ChoosePizzaFlavours = ({ location }) => {
   const [checkboxes, setCheckboxes] = useState(() => ({}));
-  const { userInfo } = useContext(AuthContext);
 
   if (!location.state) {
     return <Redirect to={HOME} />;
   }
-  const { flavours, id, name, slices } = location.state;
+  const { flavours, id } = location.state.pizzaSize;
 
   const handleChangeCheckbox = (pizzaId) => (e) => {
     if (
@@ -77,33 +70,37 @@ const ChoosePizzaFlavours = ({ location }) => {
           ))}
         </PizzasGrid>
       </Content>
-      <Footer>
-        <Container>
-          <Grid container>
-            <OrderContainer>
-              <Typography>
-                <b>{userInfo.user.firstName}, seu pedido é:</b>
-              </Typography>
-              <Typography>
-                Pizza <b>{name.toUpperCase()}</b> - ({slices} fatias, {flavours}{" "}
-                {singularOrPlural(flavours, "sabor", "sabores")})
-              </Typography>
-            </OrderContainer>
-            <Grid item>
-              <Button to={HOME}>Mudar tamanho</Button>
-              <Button to={CHOOSE_PIZZA_QUANTITY} color="primary">
-                Quantas Pizzas?
-              </Button>
-            </Grid>
-          </Grid>
-        </Container>
-      </Footer>
+      <Footer
+        buttons={{
+          back: { children: "Mudar tamanho" },
+          action: {
+            to: {
+              pathname: CHOOSE_PIZZA_QUANTITY,
+              state: {
+                ...location.state,
+                PizzaFlavours: getFlavoursNameAndId(checkboxes),
+              },
+            },
+            children: "Quantas Pizzas?",
+            disabled: checkboxesChecked(checkboxes).length === 0,
+          },
+        }}
+      />
     </>
   );
 };
 
 function checkboxesChecked(checkboxes) {
   return Object.values(checkboxes).filter(Boolean);
+}
+
+function getFlavoursNameAndId(checkboxes) {
+  return Object.entries(checkboxes)
+    .filter(([, value]) => !!value)
+    .map(([id]) => ({
+      id,
+      name: PizzaFlavours.find((flavour) => flavour.id === id).name,
+    }));
 }
 
 const Card = styled(MaterialCard)`
@@ -121,22 +118,5 @@ const Checkbox = styled.input.attrs({ type: "checkbox" })`
 `;
 
 const Label = styled(CardLink).attrs({ component: "label" })``;
-
-const Footer = styled.footer`
-  box-shadow: 0 0 3px ${({ theme }) => theme.palette.grey[400]};
-  padding: ${({ theme }) => theme.spacing(3)}px;
-  width: 100%;
-`;
-
-const OrderContainer = styled(Grid).attrs({ item: true })`
-  flex-grow: 1;
-`;
-
-const Button = styled(MaterialButton).attrs({
-  variant: "contained",
-  component: Link,
-})`
-  margin-left: ${({ theme }) => theme.spacing(2)}px;
-`;
 
 export default ChoosePizzaFlavours;

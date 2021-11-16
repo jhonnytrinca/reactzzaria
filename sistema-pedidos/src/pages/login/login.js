@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Button, Grid } from "@material-ui/core";
 import { ReactComponent as MainLogo } from "../../images/logo-react-zzaria.svg";
-import { AuthContext } from "../../contexts/auth";
+import useAuth from "../../hooks/auth";
 // eslint-disable-next-line
 import FirebaseApp from "../../services/firebase";
 
 function Login() {
-  const { login } = useContext(AuthContext);
+  const { login } = useAuth();
 
   return (
     <Container>
