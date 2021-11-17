@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import { CssBaseline, createTheme, MuiThemeProvider } from "@material-ui/core";
 import App from "./app";
-import AuthProvider from "./contexts/auth";
+import { AuthProvider, OrderProvider } from "./contexts";
 
 const theme = createTheme({
   typography: {
@@ -16,11 +16,13 @@ function Root() {
     <MuiThemeProvider theme={theme}>
       <ThemeProvider theme={theme}>
         <AuthProvider>
-          <CssBaseline />
-          <GlobalStyle />
-          <BrowserRouter>
-            <Route component={App} />
-          </BrowserRouter>
+          <OrderProvider>
+            <CssBaseline />
+            <GlobalStyle />
+            <BrowserRouter>
+              <Route component={App} />
+            </BrowserRouter>
+          </OrderProvider>
         </AuthProvider>
       </ThemeProvider>
     </MuiThemeProvider>

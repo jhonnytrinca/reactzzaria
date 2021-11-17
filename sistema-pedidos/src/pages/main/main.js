@@ -15,6 +15,8 @@ const ChoosePizzaQuantity = lazy(() =>
   import("../choose-pizza-quantity/choose-pizza-quantity.js")
 );
 
+const Checkout = lazy(() => import("../checkout/checkout.js"));
+
 const Main = () => (
   <>
     <Header />
@@ -31,6 +33,7 @@ const Main = () => (
           path={routes.CHOOSE_PIZZA_QUANTITY}
           component={ChoosePizzaQuantity}
         />
+        <Route path={routes.CHECKOUT} component={Checkout} />
       </Switch>
     </Suspense>
   </>
