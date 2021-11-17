@@ -1,5 +1,7 @@
 export const HOME = "/";
 export const LOGIN = "/login";
-export const CHOOSE_PIZZA_FLAVORS = "/choose-pizza-flavors";
-export const CHOOSE_PIZZA_QUANTITY = "/choose-pizza-quantity";
+export const CHOOSE_PIZZA_FLAVORS = "/escolher-sabores";
+export const CHOOSE_PIZZA_QUANTITY = "/escolher-quantidade";
 export const CHECKOUT = "/checkout";
+export const CHECKOUT_CONFIRMATION = `${CHECKOUT}/confirmar-pedido`;
+export const CHECKOUT_SUCCESS = `${CHECKOUT}/sucesso`;
