@@ -12,9 +12,11 @@ import { Content, OrderInfo, Title } from "../../ui";
 import useAuth from "../../hooks/auth";
 import FooterCheckout from "../checkout/footer-checkout";
 import { HOME } from "../../routes";
+import useOrder from "../../hooks/order";
 
 function CheckoutSuccess() {
   const { userInfo } = useAuth();
+  const { order } = useOrder();
 
   return (
     <>
@@ -32,8 +34,15 @@ function CheckoutSuccess() {
             <OrderInfo />
             <Divider />
             <Typography variant="h6">Endereço para entrega:</Typography>
+            <Typography>
+              {order.address.address}, {"nº"}
+              {order.address.number}, {order.address.complement},{" "}
+              {order.address.district}, {order.address.code},{" "}
+              {order.address.city}/{order.address.state}
+            </Typography>
             <Divider />
             <Typography variant="h6">Telefone para contato:</Typography>
+            <Typography>{order.phone}</Typography>
           </PaperContainer>
         </Container>
       </Content>

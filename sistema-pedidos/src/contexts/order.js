@@ -1,11 +1,13 @@
 import React, { createContext, useState } from "react";
-import uuidv4 from "uuid/v4";
+import { v4 as uuidv4 } from "uuid";
 
 export const OrderContext = createContext();
 
 function Order({ children }) {
   const [pizzas, addPizza] = useState([]);
   const [orderInProgress, setOrderInProgress] = useState(false);
+  const [phone, addPhone] = useState("");
+  const [address, addAddress] = useState({});
 
   function addPizzaToOrder(pizza) {
     if (orderInProgress) {
@@ -32,10 +34,14 @@ function Order({ children }) {
       value={{
         order: {
           pizzas,
+          address,
+          phone,
         },
         addPizzaToOrder,
         sendOrder,
         removePizzaFromOrder,
+        addAddress,
+        addPhone,
       }}
     >
       {children}

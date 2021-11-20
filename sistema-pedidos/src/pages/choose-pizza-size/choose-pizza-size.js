@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Typography, Grid, Card } from "@material-ui/core";
-import PizzaSizes from "../../fake-data/pizzas-sizes";
 import { CHOOSE_PIZZA_FLAVORS } from "../../routes";
 import { singularOrPlural } from "../../utils";
 import {
@@ -13,9 +12,19 @@ import {
   Content,
 } from "../../ui";
 import useAuth from "../../hooks/auth";
+import useCollection from "../../hooks/db";
 
 const ChoosePizzaSize = () => {
   const { userInfo } = useAuth();
+  const pizzasSizes = useCollection("pizzasSizes");
+
+  if (!pizzasSizes) {
+    return "Carregando tamanhos...";
+  }
+
+  if (pizzasSizes.length === 0) {
+    return "Não há dados.";
+  }
 
   return (
     <Content>
@@ -27,7 +36,7 @@ const ChoosePizzaSize = () => {
       </HeaderContent>
 
       <PizzasGrid>
-        {PizzaSizes.map((pizza) => (
+        {pizzasSizes?.map((pizza) => (
           <Grid item key={pizza.id} xs>
             <Card>
               <CardLink

@@ -17,7 +17,7 @@ function OrderInfo({ showOptions }) {
     <>
       <List>
         {order.pizzas.map((pizza) => {
-          const { PizzaFlavours, pizzaSize, quantity } = pizza;
+          const { pizzaFlavours, pizzaSize, quantity } = pizza;
           const { name, slices, flavours } = pizzaSize;
 
           return (
@@ -30,11 +30,11 @@ function OrderInfo({ showOptions }) {
                 {singularOrPlural(flavours, "sabor", "sabores")})
                 <br />
                 {singularOrPlural(
-                  PizzaFlavours.length,
+                  pizzaFlavours.length,
                   "no sabor",
                   "nos sabores"
                 )}{" "}
-                <b>{PizzaFlavours.map(({ name }) => name).join(", ")}</b>
+                <b>{pizzaFlavours.map(({ name }) => name).join(", ")}</b>
               </Typography>
 
               {showOptions && (

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Redirect } from "react-router-dom";
 import { Grid, Card as MaterialCard, Typography } from "@material-ui/core";
 import { HOME, CHOOSE_PIZZA_QUANTITY } from "../../routes";
-import PizzaFlavours from "../../fake-data/pizzas-flavours";
 import {
   Title,
   HeaderContent,
@@ -14,13 +13,24 @@ import {
   Footer,
 } from "../../ui";
 import { toMoney, singularOrPlural } from "../../utils";
+import useCollection from "../../hooks/db";
 
 const ChoosePizzaFlavours = ({ location }) => {
   const [checkboxes, setCheckboxes] = useState(() => ({}));
+  const pizzaFlavours = useCollection("pizzasFlavours");
 
   if (!location.state) {
     return <Redirect to={HOME} />;
   }
+
+  if (!pizzaFlavours) {
+    return "Carregando sabores...";
+  }
+
+  if (pizzaFlavours.length === 0) {
+    return "Não há dados.";
+  }
+
   const { flavours, id } = location.state.pizzaSize;
 
   const handleChangeCheckbox = (pizzaId) => (e) => {
@@ -50,7 +60,7 @@ const ChoosePizzaFlavours = ({ location }) => {
         </HeaderContent>
 
         <PizzasGrid>
-          {PizzaFlavours.map((pizza) => (
+          {pizzaFlavours.map((pizza) => (
             <Grid item key={pizza.id} xs>
               <Card checked={!!checkboxes[pizza.id]}>
                 <Label>
@@ -78,7 +88,10 @@ const ChoosePizzaFlavours = ({ location }) => {
               pathname: CHOOSE_PIZZA_QUANTITY,
               state: {
                 ...location.state,
-                PizzaFlavours: getFlavoursNameAndId(checkboxes),
+                pizzaFlavours: getFlavoursNameAndId({
+                  checkboxes,
+                  pizzaFlavours,
+                }),
               },
             },
             children: "Quantas Pizzas?",
@@ -94,12 +107,12 @@ function checkboxesChecked(checkboxes) {
   return Object.values(checkboxes).filter(Boolean);
 }
 
-function getFlavoursNameAndId(checkboxes) {
+function getFlavoursNameAndId({ checkboxes, pizzaFlavours }) {
   return Object.entries(checkboxes)
     .filter(([, value]) => !!value)
     .map(([id]) => ({
       id,
-      name: PizzaFlavours.find((flavour) => flavour.id === id).name,
+      name: pizzaFlavours.find((flavour) => flavour.id === id).name,
     }));
 }
 

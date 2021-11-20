@@ -1,19 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  Grid,
-  Paper,
-  TextField as MaterialTextField,
-  Button,
-} from "@material-ui/core";
+import { Grid, Paper, Button } from "@material-ui/core";
 import { Link, Redirect } from "react-router-dom";
 import { Content, Title as UiTitle, OrderInfo } from "../../ui";
 import { CHECKOUT_CONFIRMATION, HOME } from "../../routes";
 import FooterCheckout from "./footer-checkout";
 import useOrder from "../../hooks/order";
+import FormAddress from "./form-address";
+
+import PhoneField from "./phone-field";
 
 function Checkout() {
-  const { order } = useOrder();
+  const { order, addPhone, addAddress } = useOrder();
 
   if (!order.pizzas.length) {
     return <Redirect to={HOME} />;
@@ -26,18 +24,10 @@ function Checkout() {
           <Grid item xs={12} md={6}>
             <Title>Qual o endereço para entrega?</Title>
             <PaperContainer>
-              <Grid container spacing={2}>
-                <TextField label="CEP" xs={4} autoFocus></TextField>
-                <Grid item xs={8} />
-                <TextField label="Rua" xs={9}></TextField>
-                <TextField label="Número" xs={3}></TextField>
-                <TextField label="Complemento" xs={12}></TextField>
-                <TextField label="Cidade" xs={9}></TextField>
-                <TextField label="Estado" xs={3}></TextField>
-              </Grid>
+              <FormAddress onUpdate={addAddress} />
             </PaperContainer>
             <PaperContainer>
-              <TextField label="Telefone" xs={4}></TextField>
+              <PhoneField onUpdate={addPhone} />
             </PaperContainer>
           </Grid>
 
@@ -61,14 +51,6 @@ function Checkout() {
         </Button>
       </FooterCheckout>
     </>
-  );
-}
-
-function TextField({ xs, ...props }) {
-  return (
-    <Grid item xs={xs}>
-      <MaterialTextField variant="outlined" fullWidth {...props} />
-    </Grid>
   );
 }
 
