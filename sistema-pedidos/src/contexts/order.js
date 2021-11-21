@@ -30,18 +30,6 @@ function Order({ children }) {
   }
 
   async function sendOrder() {
-    // await db.collection("orders").add({
-    //   userId: userInfo.user.uid,
-    //   createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    //   address,
-    //   phone,
-    //   pizzas: pizzas.map((pizza) => ({
-    //     size: pizza.pizzaSizes,
-    //     flavours: pizza.pizzaFlavours,
-    //     quantity: pizza.quantity,
-    //   })),
-    // });
-
     try {
       const docRef = await addDoc(collection(db, "orders"), {
         userId: userInfo.user.uid,
