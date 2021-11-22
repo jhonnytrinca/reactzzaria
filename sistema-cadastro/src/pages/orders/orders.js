@@ -2,18 +2,16 @@ import React, { useMemo } from "react";
 import styled from "styled-components";
 import {
   Table,
-  TableHead,
   TableRow,
   TableCell,
   TableBody,
   Typography,
-  Paper,
-  TableContainer as MaterialTableContainer,
   Fab,
 } from "@material-ui/core";
 import { useOrders } from "../../hooks";
 import { singularOrPlural } from "../../utils";
 import { Check, DonutLarge, Motorcycle } from "@material-ui/icons";
+import { TableContainer, TableTitle, THead, TCell } from "../../ui";
 
 function getHour(date) {
   const options = {
@@ -25,7 +23,6 @@ function getHour(date) {
 
 function Orders() {
   const { orders, status, updateOrder } = useOrders();
-  console.log(orders);
 
   const allOrderStatus = useMemo(() => {
     return [
@@ -164,24 +161,6 @@ function Orders() {
     </TableContainer>
   ));
 }
-
-const THead = styled(TableHead)`
-  background: ${({ theme }) => theme.palette.common.black};
-`;
-
-const TCell = styled(TableCell)`
-  color: ${({ theme }) => theme.palette.common.white};
-`;
-
-const TableTitle = styled(Typography).attrs({ variant: "h6" })`
-  padding: ${({ theme }) => theme.spacing(3)}px;
-`;
-
-const TableContainer = styled(MaterialTableContainer).attrs({
-  component: Paper,
-})`
-  margin-bottom: ${({ theme }) => theme.spacing(3)}px;
-`;
 
 const Subtitle = styled(Typography).attrs({ variant: "button" })`
   font-weight: bold;

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, createContext } from "react";
+import React, { useState, useCallback, createContext, useEffect } from "react";
 import t from "prop-types";
 import {
   GithubAuthProvider,
@@ -7,7 +7,8 @@ import {
   getAuth,
 } from "firebase/auth";
 // eslint-disable-next-line
-import FirebaseApp from "../services/firebase";
+import FirebaseApp, { db } from "../services/firebase";
+import { getDoc, doc, setDoc } from "@firebase/firestore";
 
 export const AuthContext = createContext();
 
@@ -16,6 +17,25 @@ function Auth({ children }) {
     isUserLoggedIn: false,
     user: null,
   });
+
+  useEffect(() => {
+    const uid = userInfo.user?.uid || "EMPTY";
+    const docRef = doc(db, "users", uid);
+
+    const loadUser = async () => {
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists() || uid === "EMPTY") {
+        return;
+      }
+
+      setDoc(docRef, {
+        email: userInfo.user.email,
+        name: userInfo.user.displayName,
+        role: "user",
+      });
+    };
+    loadUser();
+  }, [userInfo]);
 
   const login = useCallback(() => {
     const provider = new GithubAuthProvider();

@@ -1,9 +1,18 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import { db } from "../../services/firebase";
-import { getDocs, collection } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  setDoc,
+  doc,
+  orderBy,
+  query,
+} from "firebase/firestore";
+import { useMounted } from "..";
 
 function useOrders() {
   const [orders, setOrders] = useState(null);
+  const mounted = useMounted();
 
   const status = useMemo(
     () => ({
@@ -15,9 +24,12 @@ function useOrders() {
     []
   );
 
-  useEffect(() => {
+  const getOrders = useCallback(() => {
+    const ordersRef = collection(db, "orders");
+    const queryRef = query(ordersRef, orderBy("createdAt", "asc"));
+
     const loadData = async () => {
-      const querySnapshot = await getDocs(collection(db, "orders"));
+      const querySnapshot = await getDocs(queryRef);
       let docs = [];
       querySnapshot.forEach((doc) => {
         docs.push({
@@ -31,6 +43,10 @@ function useOrders() {
         return acc;
       }, {});
 
+      if (!mounted.current) {
+        return;
+      }
+
       setOrders(
         docs.reduce((acc, doc) => {
           const mainStatus = doc.status || status.pending;
@@ -43,9 +59,21 @@ function useOrders() {
       );
     };
     loadData();
-  }, [status]);
+  }, [status, mounted]);
 
-  return { orders, status };
+  const updateOrder = useCallback(
+    async ({ orderId, status }) => {
+      await setDoc(doc(db, "orders", orderId), { status }, { merge: true });
+      getOrders();
+    },
+    [getOrders]
+  );
+
+  useEffect(() => {
+    getOrders();
+  }, [getOrders]);
+
+  return { orders, status, updateOrder };
 }
 
 export default useOrders;
