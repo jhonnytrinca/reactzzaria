@@ -57,6 +57,13 @@ function TablePizzasFlavours() {
           </TableRow>
         </THead>
         <TableBody>
+          {!pizzasFlavours?.length === 0 && (
+            <TableRow>
+              <TableCell>Não existem sabores cadastrados.</TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+        <TableBody>
           {pizzasFlavours?.map((pizza) => (
             <TableRow key={pizza.id}>
               <TableCell>
